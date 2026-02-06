@@ -1,73 +1,121 @@
-# React + TypeScript + Vite
+# GitHub User Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that searches for GitHub users and displays their profile information and public repositories using the GitHub REST API.
 
-Currently, two official plugins are available:
+## 🎯 Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Search for any GitHub user by username and view their profile details, statistics, and complete list of public repositories. Built with React, TypeScript, and Vite.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** - Component-based UI library
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast development build tool
+- **GitHub REST API** - User and repository data
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Planned
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [ ] Search GitHub users by username
+- [ ] Display user profile information
+- [ ] Show user statistics (followers, following, repos)
+- [ ] List user's public repositories
+- [ ] Display repository details (name, description, language, stars)
+- [ ] Loading states while fetching data
+- [ ] Error handling for invalid usernames
+- [ ] Clean, responsive UI
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js installed
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+
+# Navigate to project directory
+cd github-finder
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) to view the app.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📂 Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/
+│   ├── SearchForm.tsx        # Username search input
+│   ├── UserProfile.tsx       # User info display
+│   ├── RepoList.tsx          # Repository list
+│   └── RepoCard.tsx          # Individual repo card
+├── App.tsx                   # Main app component
+└── main.tsx                  # App entry point
+```
+
+## 🔌 API Integration
+
+### GitHub REST API
+
+**User Endpoint:**
+
+```
+GET https://api.github.com/users/{username}
+```
+
+**Repositories Endpoint:**
+
+```
+GET https://api.github.com/users/{username}/repos
+```
+
+**Note:** No API key required. GitHub allows 60 unauthenticated requests per hour.
+
+## 🧩 Key Concepts Demonstrated
+
+### React Fundamentals
+
+- Component composition
+- State management with `useState`
+- Async data fetching
+- Conditional rendering
+- Props and data flow
+- List rendering
+
+### TypeScript
+
+- Interface definitions
+- Type-safe props
+- API response typing
+
+### API Integration
+
+- RESTful API consumption
+- Sequential API calls
+- Error handling
+- Loading states
+
+## 📝 Learning Goals
+
+This project practices:
+
+- Working with external APIs
+- Handling complex API responses
+- Displaying nested data structures
+- User search functionality
+- Error handling and user feedback
+- TypeScript with React
+
+## 📄 License
+
+MIT
