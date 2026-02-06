@@ -5,8 +5,24 @@ import { GithubUserSearch } from "./components/GithubUserSearchForm";
 function App() {
   const [githubData, setGithubData] = useState();
 
-  const fetchUser = (data: string) => {
-    console.log(data);
+  const getData = async (username: string) => {
+    const url = `https://api.github.com/users/${username}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchUser = (username: string) => {
+    console.log(username);
+    getData(username);
   };
 
   return (
@@ -36,6 +52,10 @@ export default App;
  - Pass the state up to app.tsx
  - fetch(githubUser) from github API - no key needed
 
+GET https://api.github.com/users/{username}
+
+GET https://api.github.com/users/{username}/repos
+
 
 Feature 2: User Profile Display
  Show the user's information
@@ -61,16 +81,5 @@ Feature 4: User Experience
  Handle loading states
  Handle errors (user not found)
  Clean, readable UI
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+
  */
