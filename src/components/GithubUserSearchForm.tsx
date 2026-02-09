@@ -7,7 +7,6 @@ export const GithubUserSearch = (props: {
 
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(githubUser);
     props.fetchUser(githubUser);
   };
 

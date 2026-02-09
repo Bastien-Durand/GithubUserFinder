@@ -1,20 +1,41 @@
 import { useState } from "react";
 import "./App.css";
 import { GithubUserSearch } from "./components/GithubUserSearchForm";
+import { GithubUserProfile } from "./components/GithubUserProfile";
+import { GithubUserRepos } from "./components/GithubUserRepos";
 
 function App() {
   const [githubData, setGithubData] = useState();
+  const [githubRepos, setGithubRepos] = useState();
 
-  const getData = async (username: string) => {
-    const url = `https://api.github.com/users/${username}`;
+  const getProfileData = async (username: string) => {
+    const profileUrl = `https://api.github.com/users/${username}`;
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+      const profileDataResponse = await fetch(profileUrl);
+      if (!profileDataResponse.ok) {
+        throw new Error(
+          `Profile Data Response status: ${profileDataResponse.status}`,
+        );
       }
 
-      const result = await response.json();
-      console.log(result);
+      const profileDataResult = await profileDataResponse.json();
+      console.log(profileDataResult);
+      setGithubData(profileDataResult);
+      if (username) {
+        const repoUrl = `https://api.github.com/users/${username}/repos`;
+        try {
+          const repoResponse = await fetch(repoUrl);
+          if (!repoResponse.ok) {
+            throw new Error(`Repo Response status: ${repoResponse.status}`);
+          }
+
+          const repoResult = await repoResponse.json();
+          console.log(repoResult);
+          setGithubRepos(repoResult);
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -22,7 +43,7 @@ function App() {
 
   const fetchUser = (username: string) => {
     console.log(username);
-    getData(username);
+    getProfileData(username);
   };
 
   return (
@@ -30,6 +51,8 @@ function App() {
       <h1>Github User Finder</h1>
       <div>
         <GithubUserSearch fetchUser={fetchUser} />
+        <GithubUserProfile githubData={githubData} />
+        {githubRepos && <GithubUserRepos githubRepos={githubRepos} />}
       </div>
     </>
   );
@@ -44,7 +67,7 @@ export default App;
  Fetch data from GitHub API
 
  BUILD:
- - Build GithubUserSearch.tsx component & display in App.tsx
+ - Build GithubUserSearchForm.tsx component & display in App.tsx
  - Create form html that has onSubmit
  - Input field + submit button
  - HandleSubmit function
