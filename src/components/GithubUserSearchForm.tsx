@@ -32,13 +32,3 @@ export const GithubUserSearch = (props: {
     </div>
   );
 };
-
-//  BUILD:
-//  - Build GithubUserSearch.tsx component & display in App.tsx DONE
-//  - Create form html that has onSubmit
-//  - Input field + submit button
-//  - handleSubmit function
-//  - handleChange function
-//  - State for setGithubUser()
-//  - Pass the state up to app.tsx
-//  - fetch(githubUser) from github API - no key needed

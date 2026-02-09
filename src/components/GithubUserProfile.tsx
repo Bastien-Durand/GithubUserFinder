@@ -16,10 +16,6 @@ export const GithubUserProfile = (props) => {
     user_view_type,
   } = props.githubData;
 
-  //   if(name.length == 0) {
-  //     return <div>user info not found</div>
-  //   }
-
   return (
     <div>
       <div>
