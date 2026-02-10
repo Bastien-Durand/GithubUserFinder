@@ -1,6 +1,11 @@
-export const GithubUserProfile = (props) => {
-  console.log(props.githubData);
-  if (!props.githubData) {
+import type { GitHubUser } from "../types/GitHub";
+
+interface Props {
+  githubData?: GitHubUser;
+}
+
+export const GithubUserProfile = ({ githubData }: Props) => {
+  if (!githubData) {
     return;
   }
   const {
@@ -14,7 +19,7 @@ export const GithubUserProfile = (props) => {
     public_gists,
     public_repos,
     user_view_type,
-  } = props.githubData;
+  } = githubData;
 
   return (
     <div>

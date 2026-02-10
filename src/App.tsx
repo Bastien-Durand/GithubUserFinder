@@ -3,12 +3,19 @@ import "./App.css";
 import { GithubUserSearch } from "./components/GithubUserSearchForm";
 import { GithubUserProfile } from "./components/GithubUserProfile";
 import { GithubUserRepos } from "./components/GithubUserRepos";
+import type { GitHubUser, GitHubRepo } from "./types/GitHub";
 
 function App() {
-  const [githubData, setGithubData] = useState();
-  const [githubRepos, setGithubRepos] = useState();
+  const [githubData, setGithubData] = useState<GitHubUser | undefined>();
+  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const getProfileData = async (username: string) => {
+    setLoading(true);
+    setError("");
+    setGithubData(undefined);
+    setGithubRepos(undefined);
     const profileUrl = `https://api.github.com/users/${username}`;
     try {
       const profileDataResponse = await fetch(profileUrl);
@@ -19,7 +26,6 @@ function App() {
       }
 
       const profileDataResult = await profileDataResponse.json();
-      console.log(profileDataResult);
       setGithubData(profileDataResult);
       if (username) {
         const repoUrl = `https://api.github.com/users/${username}/repos`;
@@ -30,19 +36,21 @@ function App() {
           }
 
           const repoResult = await repoResponse.json();
-          console.log(repoResult);
           setGithubRepos(repoResult);
-        } catch (error) {
-          console.error(error.message);
+        } catch {
+          setError("User not found. Please try again.");
+        } finally {
+          setLoading(false);
         }
       }
-    } catch (error) {
-      console.error(error.message);
+    } catch {
+      setError("User not found. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchUser = (username: string) => {
-    console.log(username);
     getProfileData(username);
   };
 
@@ -50,6 +58,8 @@ function App() {
     <>
       <h1>Github User Finder</h1>
       <div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {loading && <p>Loading user data...</p>}
         <GithubUserSearch fetchUser={fetchUser} />
         <GithubUserProfile githubData={githubData} />
         {githubRepos && <GithubUserRepos githubRepos={githubRepos} />}

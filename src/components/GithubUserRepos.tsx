@@ -1,11 +1,17 @@
-export const GithubUserRepos = (props) => {
-  if (!props.githubRepos || props.githubRepos.length === 0) {
+import type { GitHubRepo } from "../types/GitHub";
+
+interface Props {
+  githubRepos?: GitHubRepo[];
+}
+
+export const GithubUserRepos = ({ githubRepos }: Props) => {
+  if (!githubRepos || githubRepos.length === 0) {
     return <div>No repos</div>;
   }
 
   return (
     <div>
-      {props.githubRepos.map((repo) => (
+      {githubRepos.map((repo) => (
         <div key={repo.id || repo.name} style={{ marginBottom: "20px" }}>
           {repo.name && (
             <h2>
@@ -17,10 +23,10 @@ export const GithubUserRepos = (props) => {
               <strong>Description: </strong> {repo.description}
             </p>
           )}
-          {repo.url && (
+          {repo.html_url && (
             <p>
               <strong>url: </strong>
-              <a href={repo.url}>{repo.url}</a>
+              <a href={repo.html_url}>{repo.html_url}</a>
             </p>
           )}
           {repo.language && (
