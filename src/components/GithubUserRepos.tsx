@@ -1,4 +1,5 @@
 import type { GitHubRepo } from "../types/GitHub";
+import styles from "./GithubUserRepos.module.css";
 
 interface Props {
   githubRepos?: GitHubRepo[];
@@ -10,41 +11,43 @@ export const GithubUserRepos = ({ githubRepos }: Props) => {
   }
 
   return (
-    <div>
+    <div className={styles.reposContainer}>
+      <h2 className={styles.reposTitle}>Repositories ({githubRepos.length})</h2>
+
       {githubRepos.map((repo) => (
-        <div key={repo.id || repo.name} style={{ marginBottom: "20px" }}>
-          {repo.name && (
-            <h2>
-              <strong>Name: </strong> {repo.name}
-            </h2>
-          )}
+        <div key={repo.id} className={styles.repoCard}>
+          {repo.name && <h3 className={styles.repoName}>{repo.name}</h3>}
+
           {repo.description && (
-            <p>
-              <strong>Description: </strong> {repo.description}
-            </p>
+            <p className={styles.repoDescription}>{repo.description}</p>
           )}
-          {repo.html_url && (
-            <p>
-              <strong>url: </strong>
-              <a href={repo.html_url}>{repo.html_url}</a>
-            </p>
-          )}
-          {repo.language && (
-            <p>
-              <strong>language: </strong> {repo.language}
-            </p>
-          )}
-          {repo.homepage && (
-            <p>
-              <strong>homepage: </strong>
-              <a href={repo.homepage}>{repo.homepage}</a>
-            </p>
-          )}
-          {repo.watchers && (
-            <p>
-              <strong>watchers: </strong> {repo.watchers}
-            </p>
-          )}
+
+          <div className={styles.repoMeta}>
+            {repo.language && (
+              <div className={styles.repoMetaItem}>
+                <span className={styles.repoLabel}>Language:</span>
+                {repo.language}
+              </div>
+            )}
+
+            {repo.watchers !== undefined && (
+              <div className={styles.repoMetaItem}>
+                <span className={styles.repoLabel}>⭐ Stars:</span>
+                {repo.watchers}
+              </div>
+            )}
+
+            {repo.html_url && (
+              <a
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.repoLink}
+              >
+                View on GitHub →
+              </a>
+            )}
+          </div>
         </div>
       ))}
     </div>

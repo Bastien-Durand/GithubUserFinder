@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import { GithubUserSearch } from "./components/GithubUserSearchForm";
 import { GithubUserProfile } from "./components/GithubUserProfile";
 import { GithubUserRepos } from "./components/GithubUserRepos";
@@ -55,16 +55,18 @@ function App() {
   };
 
   return (
-    <>
-      <h1>Github User Finder</h1>
-      <div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {loading && <p>Loading user data...</p>}
-        <GithubUserSearch fetchUser={fetchUser} />
-        <GithubUserProfile githubData={githubData} />
-        {githubRepos && <GithubUserRepos githubRepos={githubRepos} />}
-      </div>
-    </>
+    <div className={styles.container}>
+      <h1 className={styles.title}>🔍 GitHub User Finder</h1>
+
+      <GithubUserSearch fetchUser={fetchUser} />
+
+      {loading && <p className={styles.loading}>Loading user data...</p>}
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      <GithubUserProfile githubData={githubData} />
+      {githubRepos && <GithubUserRepos githubRepos={githubRepos} />}
+    </div>
   );
 }
 

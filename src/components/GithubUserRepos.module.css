@@ -1,0 +1,68 @@
+.reposContainer {
+  margin-top: 30px;
+}
+
+.reposTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #24292e;
+}
+
+.repoCard {
+  background: white;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: box-shadow 0.2s;
+}
+
+.repoCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.repoName {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #0969da;
+}
+
+.repoDescription {
+  color: #57606a;
+  margin: 10px 0;
+}
+
+.repoMeta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #57606a;
+}
+
+.repoMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.repoLabel {
+  font-weight: 600;
+}
+
+.repoLink {
+  color: #0969da;
+  text-decoration: none;
+}
+
+.repoLink:hover {
+  text-decoration: underline;
+}
+
+.noRepos {
+  text-align: center;
+  padding: 40px;
+  color: #57606a;
+  font-size: 18px;
+}

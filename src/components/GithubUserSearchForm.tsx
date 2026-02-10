@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./GithubUserSearch.module.css";
 
 export const GithubUserSearch = (props: {
   fetchUser: (value: string) => void;
@@ -15,20 +16,19 @@ export const GithubUserSearch = (props: {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter github username"
-            value={githubUser}
-            onChange={handleChange}
-          />
-          <button type="submit" value="submit">
-            Search
-          </button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.searchForm}>
+      <div className={styles.searchContainer}>
+        <input
+          type="text"
+          placeholder="Enter GitHub username..."
+          value={githubUser}
+          onChange={handleChange}
+          className={styles.searchInput}
+        />
+        <button type="submit" className={styles.searchButton}>
+          Search
+        </button>
+      </div>
+    </form>
   );
 };

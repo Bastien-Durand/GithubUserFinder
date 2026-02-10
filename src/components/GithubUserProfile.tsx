@@ -1,4 +1,5 @@
 import type { GitHubUser } from "../types/GitHub";
+import styles from "./GithubUserProfile.module.css";
 
 interface Props {
   githubData?: GitHubUser;
@@ -22,69 +23,65 @@ export const GithubUserProfile = ({ githubData }: Props) => {
   } = githubData;
 
   return (
-    <div>
-      <div>
-        {" "}
-        {name && (
-          <div>
-            <h2>{name}'s Profile</h2>
-            {user_view_type && (
-              <p>
-                <strong>Profile type: </strong>
-                {user_view_type}
-              </p>
-            )}
+    <div className={styles.profileCard}>
+      {name && (
+        <>
+          <div className={styles.profileHeader}>
             {avatar_url && (
-              <img
-                src={avatar_url}
-                alt="avatar url"
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
+              <img src={avatar_url} alt="avatar" className={styles.avatar} />
             )}
-            {bio && (
-              <p>
-                <strong>Bio: </strong>
-                {bio}
-              </p>
-            )}
+            <div>
+              <h2 className={styles.name}>{name}'s Profile</h2>
+              {user_view_type && (
+                <p className={styles.profileType}>
+                  Profile type: {user_view_type}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {bio && <p className={styles.bio}>{bio}</p>}
+
+          <div className={styles.statsGrid}>
             {company && (
-              <p>
-                <strong>Company: </strong>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Company:</span>
                 {company}
-              </p>
+              </div>
             )}
-            {email && <p>{email}</p>}
-            {followers && (
-              <p>
-                <strong>Followers: </strong>
+            {email && (
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Email:</span>
+                {email}
+              </div>
+            )}
+            {followers !== undefined && (
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Followers:</span>
                 {followers}
-              </p>
+              </div>
             )}
             {location && (
-              <p>
-                <strong>Location: </strong> {location}
-              </p>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Location:</span>
+                {location}
+              </div>
             )}
-            {public_gists && (
-              <p>
-                <strong>Public Gists: </strong>
+            {public_gists !== undefined && (
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Public Gists:</span>
                 {public_gists}
-              </p>
+              </div>
             )}
-            {public_repos && (
-              <p>
-                <strong>Public Repos: </strong>
+            {public_repos !== undefined && (
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Public Repos:</span>
                 {public_repos}
-              </p>
+              </div>
             )}
           </div>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 };
